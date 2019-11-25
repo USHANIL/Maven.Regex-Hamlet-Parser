@@ -1,5 +1,10 @@
+import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
+
+import java.io.FileNotFoundException;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import static org.junit.Assert.*;
 
@@ -14,18 +19,35 @@ public class HamletParserTest {
     }
 
     @Test
-    public void testChangeHamletToLeon() {
+    public void testChangeHamletToLeon() throws FileNotFoundException {
+        String toreplaceText = "Hamlet";
+        String tobereplacedbyText = "Leon";
+        hamletText = hamletParser.replace(toreplaceText,tobereplacedbyText);
+        hamletParser.writeFile(hamletText);
+
+        Assert.assertTrue(hamletText.contains("Leon"));
+        Assert.assertFalse(hamletText.contains("Hamlet"));
     }
 
     @Test
-    public void testChangeHoratioToTariq() {
+    public void testChangeHoratioToTariq() throws FileNotFoundException {
+        String toreplaceText = "Horatio";
+        String tobereplacedbyText = "Tariq";
+        hamletText = hamletParser.replace(toreplaceText,tobereplacedbyText);
+        hamletParser.writeFile(hamletText);
+
+        Assert.assertTrue(hamletText.contains("Tariq"));
+        Assert.assertFalse(hamletText.contains("Horatio"));
     }
 
     @Test
     public void testFindHoratio() {
+        Assert.assertTrue(hamletParser.findString("Horatio"));
+
     }
 
     @Test
     public void testFindHamlet() {
+        Assert.assertTrue(hamletParser.findString("Hamlet"));
     }
 }
